@@ -36,4 +36,19 @@ function searchByArtist(keyword) {
 
 function searchByTrack(keyword) {
   var url = 'http://ws.spotify.com/search/1/track.json?q='+keyword;
+  $.ajax({
+    url: url,
+    type: 'GET',
+    dataType: 'json'
+  }).done( function(response) {
+
+    for (var i=0; i < response.tracks.length; i++) {
+      $("#results").append("<li><a href='" + response.tracks[i].href + "'>" + response.tracks[i].name + "</a></li>");
+    }
+
+  }).fail( function() {
+    console.log("Oops, I don't think so...");
+  }).always( function() {
+    console.log("Beep boop");
+  });
 }
